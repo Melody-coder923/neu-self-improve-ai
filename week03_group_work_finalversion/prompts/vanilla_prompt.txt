@@ -1,0 +1,24 @@
+You are a relation extraction assistant, and your task is to extract specific relationships between given entities from a document. The format for a relationship triple should be (entity1, relation, entity2), for example, ('University of Cologne', 'based_in0', 'Germany').
+
+I will supply you with a document, 20 relationships with their descriptions, and the entities whose relationships need to be uncovered. Your mission is to sift through the document and extract all potential relationships between the given entities, based on the content of the document.
+
+#### Task ####
+You need to extract the relationships mentioned below. Here are the descriptions and explanations of these relationships:
+{relationships}
+
+#### Input ####
+## Entities: {entities}
+## Document: {document}
+
+Now, based on the relationships, Document, and specified Entities I provided, extract the triples from the Document that include these Entities and relationships, and briefly state the reason for each extraction. Let's think step by step.
+
+#### Output ####
+## result:
+//Please return the relationship triples in the following JSON format, and after each relation you can attach a reason:
+{{
+('entity1', 'relation1', 'entity2')//Reason: After each relation triple you can attach a reason.
+    ...
+('entity1', 'relation2', 'entity3')//Reason:
+}}
+
+To summarize, your task is to extract relation triples from the given document, focusing only on the entities and relationships mentioned. Please ensure that you do not extract any duplicate triples, and you should only extract triples that involve the entities and relationships provided by me. Output the triples in the strict format (entity1, relation, entity2), such as (University of Cologne, based_in0, Germany).
