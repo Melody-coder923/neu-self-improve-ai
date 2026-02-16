@@ -4,7 +4,7 @@ baseline_vanilla.py - Vanilla LLM baseline for relation extraction.
 This script:
 1. Reads test documents from SQLite
 2. For each document, constructs a prompt with entities and relation definitions
-3. Calls GPT-4 API to extract relation triples
+3. Calls LLM API to extract relation triples
 4. Parses the response and stores predictions in SQLite
 """
 
@@ -21,21 +21,18 @@ except ImportError:
     print("Please install openai: pip install openai")
     exit(1)
 
-# Gemini support
-GEMINI_MODELS = {"gemini-2.0-flash", "gemini-2.0-flash-lite", "gemini-1.5-flash", "gemini-1.5-pro"}
-
 
 class VanillaBaseline:
     def __init__(self, db_path, prompt_path, api_key=None, model="gpt-4-0613", provider="openai"):
         self.db_path = db_path
         self.conn = sqlite3.connect(db_path)
         self.model = model
-        self.provider = provider  # "openai", "gemini", or "groq"
+        self.provider = provider
 
         # LLM parameters (from paper Table A5)
         self.temperature = 0
         self.top_p = 1
-        self.max_tokens = 1000
+        self.max_tokens = 2000
         self.frequency_penalty = 0
         self.presence_penalty = 0
 
@@ -120,7 +117,7 @@ class VanillaBaseline:
         return prompt
 
     def call_llm(self, prompt, max_retries=5, sleep_duration=10):
-        """Call LLM API with retry logic. Works for both OpenAI and Gemini."""
+        """Call LLM API with retry logic."""
         if self.client is None:
             raise RuntimeError("No API key configured.")
 
@@ -138,7 +135,6 @@ class VanillaBaseline:
                 error_msg = str(e)
                 print(f"  API error (attempt {attempt + 1}/{max_retries}): {error_msg}")
                 if "429" in error_msg or "rate" in error_msg.lower() or "quota" in error_msg.lower():
-                    # Rate limit - wait longer for Gemini free tier
                     wait_time = sleep_duration if self.provider == "openai" else 15
                     print(f"  Rate limited, waiting {wait_time}s...")
                     time.sleep(wait_time)
@@ -148,28 +144,45 @@ class VanillaBaseline:
         raise RuntimeError("Max retries exceeded for API call.")
 
     def parse_response(self, response_text, valid_entities, valid_relations):
-        """Parse LLM response to extract relation triples."""
+        """Parse LLM response to extract relation triples.
+        
+        Format-level cleanup only (quotes, whitespace, bullet prefixes).
+        Entity and relation matching is strictly exact-match.
+        """
         predicted = set()
 
-        # Find all (entity1, relation, entity2) patterns
-        # Handle both ('entity1', 'relation', 'entity2') and (entity1, relation, entity2)
-        triplets_str = re.findall(r'\((.*?)\)', response_text)
+        if not response_text:
+            return predicted
 
-        for triplet in triplets_str:
-            # Split by comma and clean up
-            parts = [p.strip().strip("'\"") for p in triplet.split(",")]
+        lines = response_text.split('\n')
+        for line in lines:
+            # Find all (...) patterns in this line
+            matches = re.findall(r'\((.*?)\)', line)
+            for match in matches:
+                parts = [p.strip() for p in match.split(",")]
 
-            if len(parts) < 3:
-                continue
+                if len(parts) < 3:
+                    continue
 
-            # Take first 3 parts (ignore reason after //)
-            entity1 = parts[0].strip()
-            relation = parts[1].strip()
-            entity2 = parts[2].strip()
+                entity1 = parts[0].strip()
+                relation = parts[1].strip()
+                entity2 = parts[2].strip()
 
-            # Validate: relation must be in our 20 types, entities must be valid
-            if relation in valid_relations and entity1 in valid_entities and entity2 in valid_entities:
-                predicted.add((entity1, relation, entity2))
+                # Format-level cleanup: remove quotes, backticks, asterisks
+                for char in ["'", '"', '`', '*']:
+                    entity1 = entity1.strip(char)
+                    relation = relation.strip(char)
+                    entity2 = entity2.strip(char)
+
+                entity1 = entity1.strip()
+                relation = relation.strip()
+                entity2 = entity2.strip()
+
+                # Strict exact match only
+                if (relation in valid_relations
+                        and entity1 in valid_entities
+                        and entity2 in valid_entities):
+                    predicted.add((entity1, relation, entity2))
 
         return predicted
 
@@ -199,30 +212,24 @@ class VanillaBaseline:
         for i, (doc_id, content) in enumerate(test_docs):
             print(f"[{i+1}/{len(test_docs)}] Processing {doc_id}...")
 
-            # Get entities for this document
             entities = self.get_entities_for_doc(doc_id)
             if not entities:
                 print(f"  No entities found, skipping.")
                 continue
 
-            # Build prompt
             prompt = self.build_prompt(content, entities)
 
-            # Call LLM
             try:
                 response_text = self.call_llm(prompt)
             except RuntimeError as e:
                 print(f"  Failed: {e}")
                 continue
 
-            # Parse response
             valid_entities = set(entities)
             predictions = self.parse_response(response_text, valid_entities, valid_relations)
 
-            # Store predictions
             self.store_predictions(doc_id, predictions, method="vanilla")
 
-            # Quick per-document stats
             ground_truth = self.get_ground_truth(doc_id)
             tp = len(predictions & ground_truth)
             print(f"  Predicted: {len(predictions)}, Ground truth: {len(ground_truth)}, TP: {tp}")
@@ -239,7 +246,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run Vanilla LLM baseline")
     parser.add_argument("--db", default="../ruag.db", help="Path to SQLite database")
     parser.add_argument("--prompt", default="../prompts/vanilla_prompt.txt", help="Path to prompt template")
-    parser.add_argument("--api-key", default=None, help="API key (OpenAI or Gemini)")
+    parser.add_argument("--api-key", default=None, help="API key")
     parser.add_argument("--model", default="gpt-4-0613", help="Model name")
     parser.add_argument("--provider", default="openai", choices=["openai", "gemini", "groq"],
                         help="API provider: openai, gemini, or groq")
