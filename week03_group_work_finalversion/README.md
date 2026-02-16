@@ -8,6 +8,21 @@ Re-implementation of the baseline approach from:
 
 ---
 
+## Course Information
+
+- **Course:** INFO 7375 — Special Topics in AI Engineering and Applications
+- **Institution:** Northeastern University
+- **Instructor:** Prof. Suhabe Bugrara
+- **Assignment:** Week 03 Group Work — RuAG Part 1 (Vanilla Baseline)
+
+## Team Members
+
+- Chien-Cheng Wang
+- Yan Zhao
+- Zhenyu Dai
+
+---
+
 ## Overview
 
 This project implements the **Vanilla LLM baseline** for document-level relation extraction on the DWIE dataset. The Vanilla baseline directly prompts an LLM to extract relation triples from documents without any rules, demonstrations, or retrieval — establishing a performance floor that Part 2 (RuAG with MCTS-discovered logic rules) aims to surpass.
