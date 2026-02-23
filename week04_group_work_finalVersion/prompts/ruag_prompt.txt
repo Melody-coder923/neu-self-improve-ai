@@ -1,0 +1,41 @@
+You are a relation extraction assistant, and your task is to extract specific relationships between given entities from a document. The format for a relationship triple should be (entity1, relation, entity2), for example, (University of Cologne, based_in0, Germany). I will supply you with a document, 20 relationships with their descriptions, and the entities whose relationships need to be uncovered. Your mission is to sift through the document and extract all potential relationships between the given entities, based on the content of the document.
+
+########Task########
+You need to extract the relationships mentioned below. Here are the descriptions and explanations of these relationships:
+{relationships}
+
+To improve Recall and precision in relationship extraction, we apply a set of logic rules to deduce additional relationships based on the ones already identified. You can follow these logic rules to find more relationships between entities:
+{rules}
+Remember, the goal is to use these rules to fill in missing information and enhance the accuracy of relationship extraction. Apply these rules systematically to every piece of information you process. At the same time, the relation triples inferred using Logic rule should be identified and distinguished from the original triples.
+
+1. Based on the document and the provided logical rules, extract relationship triples and derive additional ones.
+2. Explain your derivation process and the logical rules you applied.
+
+CRITICAL RULES:
+1. You MUST use the EXACT entity names as provided in the entity list. Do NOT paraphrase, abbreviate, or use alternative names.
+2. You MUST only use the 20 relation types listed above. Do NOT invent new relation types.
+3. Note that "-x" relation variants (e.g., citizen_of-x, based_in0-x) use nominal country variations like "German" instead of "Germany". The entity list includes both forms.
+4. The relation "gpe0" connects a nominal country variation to its official country name, e.g., (German, gpe0, Germany).
+
+---Example Input----
+## Given document: "In a historic meeting in the Jordanian coastal town of Aqaba on Wednesday, Israeli Prime Minister Ariel Sharon and his Palestinian counterpart Mahmoud Abbas agreed to implement the so-called road map for peace as drafted by the Middle East quartet. European leaders lauded both sides' commitment to the plan and expressed gratitude to United States President George W. Bush for his success in bringing Abbas and Sharon together."
+## Entities: Ariel Sharon; Israel; Israeli; Mahmoud Abbas; Palestinians; George W. Bush; United States
+
+---Example Output----
+(Ariel Sharon, head_of_gov, Israel)//Reason: Ariel Sharon is identified as the Israeli Prime Minister.
+(Ariel Sharon, head_of_gov-x, Israeli)//Reason: Israeli is the nominal form of Israel.
+(Mahmoud Abbas, head_of_gov-x, Palestinians)//Reason: Mahmoud Abbas is the Palestinian counterpart.
+(George W. Bush, agent_of, United States)//Reason: George W. Bush is the United States President.
+(Israeli, gpe0, Israel)//Reason: Israeli is the nominal form of Israel.
+
+//Relation triples added after applying logical rules
+(Mahmoud Abbas, citizen_of-x, Palestinians)//Reason: Derived from rule "head_of_gov-x -> citizen_of-x" and triple (Mahmoud Abbas, head_of_gov-x, Palestinians).
+
+----Input----
+## Entities: {entities}
+## Document: {document}
+
+Now, based on the relationships, Document, and specified Entities I provided, extract the triples from the Document that include these Entities and relationships, and briefly state the reason for each extraction. Let's think step by step.
+
+---Output----
+Please ensure that you do not extract any duplicate triples, and you should only extract triples that involve the entities and relationships provided by me. Output the triples in the strict format (entity1, relation, entity2), such as (University of Cologne, based_in0, Germany). After each triple you can attach a brief reason.
