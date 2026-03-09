@@ -81,3 +81,5 @@ Implemented from scratch in `week_01.py` using only NumPy and Matplotlib:
 - **Penalty Ratio (2.5×)**: Industry standards — "walking a guest" includes alternative lodging, transport, and loyalty compensation (Talluri & van Ryzin, 2004).
 - **Cancellation Rate (1%/day)**: Aligns with cumulative cancellation rates of 20–30% for leisure hotels (Hospitality Net).
 - **No-show Rate (5%)**: Standard baseline in hospitality revenue management simulations.
+
+[Watch the Presentation Video](https://youtu.be/pd5DQCCKe7I)
