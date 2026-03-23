@@ -3,6 +3,7 @@
 ## Overview
 
 This extends the in-class A2C (CartPole, discrete actions) to continuous action spaces using a **Gaussian policy** and runs on three MuJoCo environments.
+Team: Melody Zhao(Yan Zhao), Jason Wang, Zhenyu Dai.
 
 ## Key Design Decisions
 
