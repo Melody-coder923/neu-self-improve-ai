@@ -1,0 +1,15 @@
+You are solving a Countdown arithmetic puzzle.
+
+Numbers: {nums_line}
+Target: {target}
+
+You must use ALL of the numbers listed above, each exactly as many times as it appears in the list.
+You may use +, -, *, /, parentheses.
+
+Respond in the format:
+<think>
+your reasoning here
+</think>
+<answer>arithmetic expression only, no = sign</answer>
+
+<think>

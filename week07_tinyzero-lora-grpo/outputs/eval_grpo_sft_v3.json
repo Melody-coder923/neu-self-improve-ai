@@ -1,0 +1,40 @@
+{
+  "metrics": {
+    "n": 200,
+    "format_rate": 0.995,
+    "valid_expr_rate": 0.995,
+    "solve_rate": 0.01
+  },
+  "examples": [
+    {
+      "prompt": "You are solving a Countdown arithmetic puzzle.\n\nNumbers: 79, 17, 60\nTarget: 36\n\nYou must use ALL of the numbers listed above, each exactly as many times as it appears in the list. You may use +, -, *, /, parentheses.\n\nRespond in the format:\n<think>\nyour reasoning here\n</think>\n<answer>arithmetic expression only, no = sign</answer>\n",
+      "completion": "<think>\nI need to find a combination of operations that will result in 36 using 79, 17, and 60.\n</think>\n<answer>(79 - 17) * 60</answer>",
+      "solved": false,
+      "reward_total": 1.75
+    },
+    {
+      "prompt": "You are solving a Countdown arithmetic puzzle.\n\nNumbers: 11, 34, 82, 80\nTarget: 56\n\nYou must use ALL of the numbers listed above, each exactly as many times as it appears in the list. You may use +, -, *, /, parentheses.\n\nRespond in the format:\n<think>\nyour reasoning here\n</think>\n<answer>arithmetic expression only, no = sign</answer>\n",
+      "completion": "<think>\nI need to find a combination of operations that will result in 56 using 11, 34, 82, 80.\n</think>\n<answer>(82 - 34) * (11 + 80)</answer>",
+      "solved": false,
+      "reward_total": 1.75
+    },
+    {
+      "prompt": "You are solving a Countdown arithmetic puzzle.\n\nNumbers: 51, 4, 60, 35\nTarget: 49\n\nYou must use ALL of the numbers listed above, each exactly as many times as it appears in the list. You may use +, -, *, /, parentheses.\n\nRespond in the format:\n<think>\nyour reasoning here\n</think>\n<answer>arithmetic expression only, no = sign</answer>\n",
+      "completion": "<think>\nI need to use 51, 4, 60, 35 to get 49.\n</think>\n<answer>(60 - 35) * 4 - 51</answer>",
+      "solved": true,
+      "reward_total": 4.75
+    },
+    {
+      "prompt": "You are solving a Countdown arithmetic puzzle.\n\nNumbers: 34, 98, 1, 96\nTarget: 33\n\nYou must use ALL of the numbers listed above, each exactly as many times as it appears in the list. You may use +, -, *, /, parentheses.\n\nRespond in the format:\n<think>\nyour reasoning here\n</think>\n<answer>arithmetic expression only, no = sign</answer>\n",
+      "completion": "<think>\nI need to use 34, 98, 1, 96 to get 33.\n</think>\n<answer>(98 - 1) * 34 - 96</answer>",
+      "solved": false,
+      "reward_total": 1.75
+    },
+    {
+      "prompt": "You are solving a Countdown arithmetic puzzle.\n\nNumbers: 46, 9, 49, 56\nTarget: 29\n\nYou must use ALL of the numbers listed above, each exactly as many times as it appears in the list. You may use +, -, *, /, parentheses.\n\nRespond in the format:\n<think>\nyour reasoning here\n</think>\n<answer>arithmetic expression only, no = sign</answer>\n",
+      "completion": "<think>\nI need to find a combination of operations that will result in 29 using 46, 9, 49, 56.\n</think>\n<answer>(46 + 9) * 49 - 56</answer>",
+      "solved": false,
+      "reward_total": 1.75
+    }
+  ]
+}
