@@ -66,7 +66,11 @@ def main():
         if expr is None: continue
         nums_line = ", ".join(str(n) for n in nums)
         prompt = template.format(nums_line=nums_line, target=target)
-        completion = f"I need to use {nums_line} to reach {target}.\nAfter checking: {expr} = {target}.\n</think>\n<answer>{expr}</answer>"
+        completion = (
+            f"I need to use {nums_line} to reach {target}.\n"
+            f"After checking options, one valid equation is {expr}.\n"
+            f"</think>\n<answer>{expr}</answer>"
+        )
         records.append({"text": prompt + completion})
 
     print(f"Built {len(records)} SFT examples")
