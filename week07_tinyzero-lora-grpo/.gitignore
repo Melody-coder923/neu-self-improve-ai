@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+*.pyo
+data/processed/*.parquet
+outputs/*/checkpoint-*/optimizer.pt
+outputs/*/checkpoint-*/rng_state.pth
+outputs/*/checkpoint-*/scheduler.pt
+outputs/*/checkpoint-*/training_args.bin
+outputs/*/final_adapter/training_args.bin
