@@ -1,0 +1,49 @@
+actor_rollout_ref:
+  model:
+    path: Qwen/Qwen3.5-0.8B
+    use_remove_padding: true
+    enable_gradient_checkpointing: true
+    lora_rank: 8
+    lora_alpha: 32
+    lora_dropout: 0.05
+    lora_target_modules:
+      - q_proj
+      - k_proj
+      - v_proj
+      - o_proj
+      - gate_proj
+      - up_proj
+      - down_proj
+
+  rollout:
+    # NOTE: vLLM has a weight-prefix mismatch with Qwen3.5 at inference time.
+    # Verify that your verl version's vLLM rollout can load Qwen3.5 before training,
+    # or replace with sglang if verl supports it.
+    name: vllm
+    n: 8
+    gpu_memory_utilization: 0.6
+    chat_template_kwargs:
+      enable_thinking: false
+
+  actor:
+    optim:
+      lr: 1.0e-5
+    ppo_mini_batch_size: 16
+    clip_ratio_low: 0.2
+    clip_ratio_high: 0.3
+    use_kl_loss: true
+    kl_loss_coef: 0.001
+
+data:
+  train_files: data/train/combined_train.parquet
+  val_files: data/val/aime24.parquet
+  train_batch_size: 64
+  max_prompt_length: 4096
+  max_response_length: 1024
+
+trainer:
+  n_gpus_per_node: 1
+  total_epochs: 3
+  save_freq: 50
+  project_name: agentflow-qwen35-lora
+  experiment_name: qwen35-0.8b-flow-grpo
