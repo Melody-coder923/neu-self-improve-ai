@@ -1,0 +1,35 @@
+##################################################
+Task: hotpotqa
+📊 Using SINGLE-STAGE scoring for HOTPOTQA
+Arguments: Namespace(task_name='hotpotqa', data_file='hotpotqa/data/data.json', result_dir='hotpotqa/results/Qwen2.5-7B-Together', exp_name=None, output_file='finalresults_direct_output.json', log_dir=None, response_type='direct_output', max_workers=16)
+# task_name: hotpotqa
+# data_file: hotpotqa/data/data.json
+# result_dir: hotpotqa/results/Qwen2.5-7B-Together
+# exp_name: None
+# output_file: finalresults_direct_output.json
+# log_dir: None
+# response_type: direct_output
+# max_workers: 16
+##################################################
+
+Local OpenAI engine gpt-4o initialized.
+
+
+Accuracy: 68.0% (68/100)
+
+Results saved to hotpotqa/results/Qwen2.5-7B-Together/finalresults_direct_output.json
+Wrong PIDs: ['0', '4', '5', '6', '9', '10', '15', '22', '23', '26', '28', '37', '38', '39', '41', '49', '55', '57', '58', '59', '60', '63', '66', '67', '68', '73', '79', '84', '90', '91', '92', '99']
+Wrong Indices: [0, 4, 5, 6, 9, 10, 15, 22, 23, 26, 28, 37, 38, 39, 41, 49, 55, 57, 58, 59, 60, 63, 66, 67, 68, 73, 79, 84, 90, 91, 92, 99]
+Log dir: hotpotqa/logs/Qwen2.5-7B-Together
+
+Step stats:
+- average_time: 	33.9
+- average_step: 	2.85
+- one_step_rate: 	0.4
+
+Tool usage:
+- Wikipedia_RAG_Search_Tool: 	0.505
+- Ground_Google_Search_Tool: 	0.404
+- Web_RAG_Search_Tool: 	0.077
+- Generalist_Solution_Generator_Tool: 	0.014
+Scores saved to hotpotqa/results/Qwen2.5-7B-Together/final_scores_direct_output.json
