@@ -1,0 +1,41 @@
+##################################################
+Task: gaia
+📊 Using SINGLE-STAGE scoring for GAIA
+Arguments: Namespace(task_name='gaia', data_file='gaia/data/data.json', result_dir='gaia/results/Qwen2.5-7B-Together', exp_name=None, output_file='finalresults_direct_output.json', log_dir=None, response_type='direct_output', max_workers=16)
+# task_name: gaia
+# data_file: gaia/data/data.json
+# result_dir: gaia/results/Qwen2.5-7B-Together
+# exp_name: None
+# output_file: finalresults_direct_output.json
+# log_dir: None
+# response_type: direct_output
+# max_workers: 16
+##################################################
+
+Local OpenAI engine gpt-4o initialized.
+
+
+Accuracy: 22.83% (29/127)
+
+Results saved to gaia/results/Qwen2.5-7B-Together/finalresults_direct_output.json
+Wrong PIDs: ['1', '2', '3', '4', '7', '8', '9', '10', '11', '12', '15', '16', '17', '18', '19', '20', '22', '24', '26', '27', '28', '29', '30', '31', '34', '35', '36', '37', '38', '39', '41', '42', '43', '46', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '62', '63', '65', '66', '67', '68', '69', '70', '71', '73', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '92', '93', '95', '96', '97', '98', '99', '101', '103', '104', '106', '107', '108', '109', '111', '113', '114', '116', '118', '119', '121', '122', '123', '124', '125', '126']
+Wrong Indices: [1, 2, 3, 4, 7, 8, 9, 10, 11, 12, 15, 16, 17, 18, 19, 20, 22, 24, 26, 27, 28, 29, 30, 31, 34, 35, 36, 37, 38, 39, 41, 42, 43, 46, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 62, 63, 65, 66, 67, 68, 69, 70, 71, 73, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 92, 93, 95, 96, 97, 98, 99, 101, 103, 104, 106, 107, 108, 109, 111, 113, 114, 116, 118, 119, 121, 122, 123, 124, 125, 126]
+Log dir: gaia/logs/Qwen2.5-7B-Together
+
+Step stats:
+- average_time: 	63.7
+- average_step: 	4.48
+- one_step_rate: 	0.3
+
+Tool usage:
+- Web_RAG_Search_Tool: 	0.272
+- Wikipedia_RAG_Search_Tool: 	0.258
+- Ground_Google_Search_Tool: 	0.255
+- Generalist_Solution_Generator_Tool: 	0.179
+- No matched tool given: YouTube Video Search Tool: 	0.018
+- No matched tool given: Video_Watching: 	0.014
+- No matched tool given: - Generalist_Solution_Generator_Tool: 	0.002
+- No matched tool given: - Context: YouTube channel: Game Grumps, Game: Sonic the Hedgehog (2006), Episode: First episode of the Let’s Play series, Time in episode: 30 seconds into the first episode.
+- Sub-Goal: Find the specific episode of the Game Grumps Let’s Play series for Sonic the Hedgehog (2006) and extract the phrase shown on the screen at 30 seconds into the episode.
+- Tool Name: Ground_Google_Search_Tool: 	0.002
+Scores saved to gaia/results/Qwen2.5-7B-Together/final_scores_direct_output.json
