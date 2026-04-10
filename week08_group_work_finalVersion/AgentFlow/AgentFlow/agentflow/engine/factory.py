@@ -173,6 +173,11 @@ def create_llm_engine(model_string: str, use_cache: bool = False, is_multimodal:
         }
         return ChatTogether(**config)
 
+    # === Modal ===
+    elif model_string.startswith("modal"):
+        from .modal_engine import ModalEngine
+        return ModalEngine(model_id=model_string, temperature=kwargs.get("temperature", 0.0))
+
     # === Ollama ===
     elif "ollama" in model_string:
         from .ollama import ChatOllama
