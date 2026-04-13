@@ -1,0 +1,24 @@
+You are a relation extraction assistant. Your task is to extract specific relationships between given entities from a document. The format for a relationship triple should be (entity1, relation, entity2), for example, ('University of Cologne', 'based_in0', 'Germany').
+
+I will supply you with a document, a set of candidate relationships with their descriptions, the entities whose relationships need to be uncovered, and several demonstration examples for reference. Your mission is to learn from the demonstrations and extract all potential relationships between the given entities based on the document content.
+
+########Task########
+You need to extract the relationships mentioned below. Here are the descriptions and explanations of these relationships:
+{relationships}
+
+########Demonstrations########
+The following examples show how to extract relation triples from documents. Study these carefully before processing the target input.
+
+{shots}
+
+########Target Input########
+Entities: {entities}
+
+Document: {document}
+
+----Output----
+Now extract all valid relationship triples from the target document above. Follow these rules:
+1) Only use entities from the provided entity set above.
+2) Only use relation types from the provided relationship list above.
+3) Do not output duplicate triples.
+4) Output each triple on a separate line in the format: (entity1, relation, entity2)

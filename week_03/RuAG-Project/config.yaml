@@ -1,0 +1,22 @@
+data:
+  sqlite_path: "data/dwie/dwie.sqlite"
+  train_split: "train"
+  test_split: "test"
+  exclude_filtered_docs: true
+
+model:
+  provider: "local"  # "local" or "openai"
+  name: "Qwen/Qwen2.5-7B-Instruct"
+  temperature: 0.0
+  max_tokens: 900
+
+experiment:
+  # Keep empty to use relation_types from sqlite (official RuAG relation_dicts).
+  relation_schema: []
+  use_official_relation_types: true
+  relation_top_k: 20
+  k_shots: 5
+  rag_top_k: 5
+
+# All results are stored in the sqlite database.
+# Use scripts/export_results.py to export reports when needed.
