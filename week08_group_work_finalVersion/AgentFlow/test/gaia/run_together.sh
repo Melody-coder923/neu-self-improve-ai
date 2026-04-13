@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TASK="bamboogle"
+TASK="gaia"
 THREADS=5
 DATA_FILE_NAME="data.json"
 
@@ -21,7 +21,7 @@ CACHE_DIR="$TASK/cache"
 
 mkdir -p "$LOG_DIR" "$OUT_DIR"
 
-INDICES=($(seq 0 124))
+INDICES=($(seq 0 126))
 
 new_indices=()
 for i in "${INDICES[@]}"; do
