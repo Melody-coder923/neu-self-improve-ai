@@ -1,9 +1,9 @@
 # programme loggers
 task_logs/
-rollout_data/
+# rollout_data/
 wandb/
 outputs/
-*.parquet
+# *.parquet
 tmp/
 *.ipynb
 checkpoints/
