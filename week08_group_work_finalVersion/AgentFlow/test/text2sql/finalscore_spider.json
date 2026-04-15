@@ -1,0 +1,12 @@
+{
+  "benchmark": "Spider Text-to-SQL",
+  "model": "Qwen2.5-7B-Instruct",
+  "engine": "together-Qwen/Qwen2.5-7B-Instruct-Turbo",
+  "eval_split": "dev",
+  "sample_size": 20,
+  "correct": 7,
+  "total": 20,
+  "execution_accuracy": 0.35,
+  "date": "2026-04-09",
+  "notes": "Full AgentFlow loop: Planner->Executor->Verifier->Generator"
+}
