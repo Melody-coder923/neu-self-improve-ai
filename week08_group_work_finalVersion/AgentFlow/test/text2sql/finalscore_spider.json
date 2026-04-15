@@ -1,12 +1,23 @@
 {
   "benchmark": "Spider Text-to-SQL",
-  "model": "Qwen2.5-7B-Instruct",
-  "engine": "together-Qwen/Qwen2.5-7B-Instruct-Turbo",
+  "results": [
+    {
+      "model": "Qwen2.5-7B-Instruct",
+      "training": "none",
+      "execution_accuracy": 0.35,
+      "correct": 7,
+      "total": 20
+    },
+    {
+      "model": "Qwen3.5-0.8B",
+      "training": "none",
+      "execution_accuracy": 0.1,
+      "correct": 2,
+      "total": 20
+    }
+  ],
   "eval_split": "dev",
   "sample_size": 20,
-  "correct": 7,
-  "total": 20,
-  "execution_accuracy": 0.35,
-  "date": "2026-04-09",
-  "notes": "Full AgentFlow loop: Planner->Executor->Verifier->Generator"
+  "date": "2026-04-15",
+  "notes": "Direct SQL generation via Modal vLLM endpoint"
 }
