@@ -241,8 +241,3 @@ Flow-GRPO + LoRA training ran on Modal (not on H200); the image is pinned in `tr
 | datasets | (unpinned) |
 
 The resulting adapter is saved to `AgentFlow/results/final_qwen35_lora/` and the merged variant used for evaluation is published at `Skypioneer/qwen35-0.8b-agentflow-lora`.
-
-## 9) Notes
-
-- `train/config.yaml` should not contain real private tokens when sharing.
-- Use this README as the assignment report entry point, then append final numeric results after all runs finish.
