@@ -6,7 +6,7 @@ This README documents our Week 08 assignment implementation based on the code an
 
 - Chien-Cheng Wang
 - Zhenyu Dai
-- Ke Wan
+- Ke Wang
 - Yan Zhao
 
 ## 1) Repository Structure Used for This Assignment
@@ -227,12 +227,7 @@ Then fill:
 - peft: `TBD`
 - trl: `TBD`
 
-## 9) Remaining Work to Reach Full Spec
-
-- Run benchmark evaluation for the saved LoRA adapter (`results/final_qwen35_lora`) and fill `7.2` comparison table.
-- Compute and report `Delta` values once LoRA benchmark results are available.
-
-## 10) Notes
+## 9) Notes
 
 - `train/config.yaml` should not contain real private tokens when sharing.
 - Use this README as the assignment report entry point, then append final numeric results after all runs finish.
