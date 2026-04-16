@@ -195,7 +195,7 @@ Note: LoRA adapter files exist under `AgentFlow/results/final_qwen35_lora/`, but
 
 ### 7.4 Final Conclusion (Chinese)
 
-本次提交采用聚焦范围：不包含 `Qwen3.5-27B`，并已补齐 `0.8B / 2B / 4B / 9B` 在五个主 benchmark 的无训练分数。结果展示优先使用 `final_scores_direct_output.json` 中的有效分数。`GAIA 0.8B = 0.0%` 表示评测已完成但正确数为 `0/127`，不是未运行。Text2SQL 已补充 `Qwen3.5-0.8B` 的 Spider 分数 `0.50 (10/20)`（同文件中包含 `Qwen2.5-7B` 参考结果 `0.35`）。当前后续重点是补齐 `0.8B no-training vs LoRA-training` 对照（LoRA adapter 已有，但缺评测结果文件）。
+This submission uses a reduced scope by excluding `Qwen3.5-27B`, and now includes complete no-training scores for `0.8B / 2B / 4B / 9B` across five main benchmarks. Reported values prioritize valid entries from `final_scores_direct_output.json`. `GAIA 0.8B = 0.0%` means the run completed with `0/127` correct rather than being skipped. Text2SQL now includes a `Qwen3.5-0.8B` Spider score of `0.50 (10/20)`, and the same file also contains a `Qwen2.5-7B` reference score of `0.35 (7/20)`. The only remaining gap is the `0.8B no-training vs LoRA-training` benchmark comparison, because LoRA adapter files exist but benchmark evaluation outputs are still missing.
 
 ### 7.5 Final Conclusion (English)
 
