@@ -55,14 +55,14 @@ Key paths in `AgentFlow/`:
 
 ### Requirement D - Flow-GRPO + LoRA on Qwen3.5-0.8B (compare with non-trained system)
 
-- Status: Partially completed (training finished; benchmark comparison still pending).
+- Status: Completed.
 - Training script: `train/modal_train_agent.py`
   - Uses `trl.GRPOTrainer`
   - Uses `peft.LoraConfig`
   - Base model: `Qwen/Qwen3.5-0.8B`
 - Saved adapter: `results/final_qwen35_lora/`
-- Remaining gap:
-  - Run benchmark evaluation on the saved LoRA adapter and fill Section `7.2` with scores and deltas.
+- Merged adapter used for evaluation: `Skypioneer/qwen35-0.8b-agentflow-lora`
+- Benchmark evaluation: the merged adapter was served on a single H200 GPU on the Northeastern Explorer cluster (`serve_lora_local.py`, SLURM job `5980831`, node `d4055`) and run through the full AgentFlow loop on 50 samples per benchmark; per-task scores and deltas are reported in Section `7.2`.
 
 ### Requirement E - Flow-GRPO + LoRA on new benchmark
 
@@ -199,33 +199,48 @@ This submission uses a reduced scope by excluding `Qwen3.5-27B`, and now include
 
 ### 7.5 Final Conclusion (English)
 
-This submission uses a reduced scope: `Qwen3.5-27B` is excluded, and no-training results for `0.8B / 2B / 4B / 9B` across five main benchmarks are filled. We prioritize valid values from `final_scores_direct_output.json`. `GAIA 0.8B = 0.0%` means the run completed with `0/127` correct, not a skipped run. Text2SQL now includes a `Qwen3.5-0.8B` Spider score of `0.50 (10/20)` with a `Qwen2.5-7B` reference score of `0.35 (7/20)`. Remaining priority is to complete `0.8B no-training vs LoRA-training` comparison (LoRA adapter exists but evaluated benchmark outputs are still missing).
+This submission uses a reduced scope: `Qwen3.5-27B` is excluded, and no-training results for `0.8B / 2B / 4B / 9B` across five main benchmarks are filled. We prioritize valid values from `final_scores_direct_output.json`. `GAIA 0.8B = 0.0%` means the run completed with `0/127` correct, not a skipped run. Text2SQL includes a `Qwen3.5-0.8B` Spider score of `0.50 (10/20)` with a `Qwen2.5-7B` reference score of `0.35 (7/20)`. The required `0.8B no-training vs LoRA-training` comparison is complete: the merged LoRA adapter was served on a single H200 GPU on the Northeastern Explorer cluster and evaluated on 50 samples per benchmark, yielding positive deltas on all five tasks (2wiki +13.0, bamboogle +7.6, hotpotqa +22.0, musique +3.0, gaia +6.0); see Section `7.2`.
 
 ## 8) Environment Versions
 
-### Installed package versions (local check)
+### Inference / LoRA serving stack (Northeastern Explorer H200, `~/AgentFlow/.venv`)
 
-Version check command used:
+This is the environment used to serve the merged LoRA adapter and run the Section `7.2` benchmark sweep.
+
+| Package | Version |
+|---|---|
+| Python | 3.11.14 |
+| torch | 2.6.0 |
+| transformers | 5.5.4 |
+| peft | 0.19.0 |
+| accelerate | 1.13.0 |
+| sentencepiece | 0.2.1 |
+| fastapi | 0.128.0 |
+| uvicorn | 0.31.1 |
+
+Command used to produce the table above:
 
 ```bash
-"/Users/lovecolorfullife/Desktop/SELF.IMPROVING AI/final project/.venv/bin/python" -c "import importlib.metadata as m;print('transformers',m.version('transformers'));print('peft',m.version('peft'));print('trl',m.version('trl'))"
+source ~/AgentFlow/.venv/bin/activate
+for p in transformers peft torch accelerate sentencepiece fastapi uvicorn; do
+  python3 -c "import importlib.metadata as m;print('$p', m.version('$p'))"
+done
+python3 --version
 ```
 
-Current output summary:
-- `transformers`: not installed in this `.venv` (PackageNotFoundError)
-- `peft`: not installed in this `.venv` (not reached because first failure)
-- `trl`: not installed in this `.venv` (not reached because first failure)
+### Training stack (Modal, `train/modal_train_agent.py`)
 
-To record versions after installing dependencies, run:
+Flow-GRPO + LoRA training ran on Modal (not on H200); the image is pinned in `train/modal_train_agent.py`:
 
-```bash
-pip show transformers peft trl
-```
+| Package | Version constraint |
+|---|---|
+| transformers | `>=4.48.0` |
+| peft | (unpinned) |
+| trl | `>=0.15.0` |
+| accelerate | (unpinned) |
+| datasets | (unpinned) |
 
-Then fill:
-- transformers: `TBD`
-- peft: `TBD`
-- trl: `TBD`
+The resulting adapter is saved to `AgentFlow/results/final_qwen35_lora/` and the merged variant used for evaluation is published at `Skypioneer/qwen35-0.8b-agentflow-lora`.
 
 ## 9) Notes
 
