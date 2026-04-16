@@ -197,7 +197,7 @@ Note: LoRA-Training scores are from the merged adapter `Skypioneer/qwen35-0.8b-a
 
 This submission uses a reduced scope by excluding `Qwen3.5-27B`, and now includes complete no-training scores for `0.8B / 2B / 4B / 9B` across five main benchmarks. Reported values prioritize valid entries from `final_scores_direct_output.json`. `GAIA 0.8B = 0.0%` means the run completed with `0/127` correct rather than being skipped. Text2SQL now includes a `Qwen3.5-0.8B` Spider score of `0.50 (10/20)`, and the same file also contains a `Qwen2.5-7B` reference score of `0.35 (7/20)`. The `0.8B no-training vs LoRA-training` comparison is now complete: the merged LoRA adapter was served on a single H200 GPU (Northeastern Explorer cluster) and evaluated on 50 samples per benchmark, yielding positive deltas on all five tasks (2wiki +13.0, bamboogle +7.6, hotpotqa +22.0, musique +3.0, gaia +6.0) — see §7.2 for details.
 
-### 7.5 Final Conclusion (English)
+### 7.5 Final Conclusion
 
 This submission uses a reduced scope: `Qwen3.5-27B` is excluded, and no-training results for `0.8B / 2B / 4B / 9B` across five main benchmarks are filled. We prioritize valid values from `final_scores_direct_output.json`. `GAIA 0.8B = 0.0%` means the run completed with `0/127` correct, not a skipped run. Text2SQL includes a `Qwen3.5-0.8B` Spider score of `0.50 (10/20)` with a `Qwen2.5-7B` reference score of `0.35 (7/20)`. The required `0.8B no-training vs LoRA-training` comparison is complete: the merged LoRA adapter was served on a single H200 GPU on the Northeastern Explorer cluster and evaluated on 50 samples per benchmark, yielding positive deltas on all five tasks (2wiki +13.0, bamboogle +7.6, hotpotqa +22.0, musique +3.0, gaia +6.0); see Section `7.2`.
 
